@@ -33,3 +33,20 @@ def create_newsModel(i)->NewsModel:
         url=str(i['url']),
         content=i['content']
     )
+
+@router.get("/home")
+async def getAllSources():
+    if(os.getenv("newsToken"))==None:
+        return {"error":"Could not load token"}
+    response = requests.get(url=f'https://newsapi.org/v2/top-headlines/sources?apiKey={os.getenv("newsToken")}')
+    data = response.json()
+    return data['sources']
+
+# Example query would be like: localhost:8000/news_query/?q=india
+@router.get("/news_query/")
+async def getQueryNews(q:str):
+    if(os.getenv("newsToken"))==None:
+        return {"error":"Could not load token"}
+    response = requests.get(url=f'https://newsapi.org/v2/top-headlines/sources?q={q}&apiKey={os.getenv("newsToken")}')
+    data = response.json()
+    return data['sources']
