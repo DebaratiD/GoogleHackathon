@@ -1,12 +1,12 @@
+import os
 from fastapi import APIRouter
 from app.models import Question
 import google.generativeai as genai
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
-googleKEY = os.getenv("GEMINI_KEY")
+googleKEY = "AIzaSyAFD_COHQDlvTsK5UBPKVDTFuS58Go_e3Q"
 
 router = APIRouter(
        prefix="/qapi",
