@@ -44,9 +44,20 @@ async def getAllSources():
 
 # Example query would be like: localhost:8000/news_query/?q=india
 @router.get("/news_query/")
-async def getQueryNews(q:str):
+async def getQueryNews(q="", source=""):
     if(os.getenv("newsToken"))==None:
         return {"error":"Could not load token"}
-    response = requests.get(url=f'https://newsapi.org/v2/top-headlines/sources?q={q}&apiKey={os.getenv("newsToken")}')
+    
+    params=[]
+    if len(source)!=0:
+        params.append(f'sources={source}')
+    if len(q)!=0:
+        params.append(f'q={q}')
+    params.append(f'apiKey={os.getenv("newsToken")}')
+
+    params = '&'.join(params)
+
+    response = requests.get(url=f'https://newsapi.org/v2/everything?{params}')
     data = response.json()
-    return data['sources']
+    data = [create_newsModel(i) for i in data['articles']]
+    return data
