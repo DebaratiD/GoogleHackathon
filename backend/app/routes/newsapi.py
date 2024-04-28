@@ -15,15 +15,6 @@ router = APIRouter(
 )
 
 
-@router.get("/latest_news/us")
-async def getLatestUSNews():
-    if(os.getenv("newsToken"))==None:
-        return {"error":"Could not load token"}
-    response = requests.get(url=f'https://newsapi.org/v2/everything?q=US&apiKey={os.getenv("newsToken")}')
-    data = response.json()
-    data = [create_newsModel(i) for i in data['articles']]
-    return data
-
 def create_newsModel(i)->NewsModel:
     return NewsModel(
         title=i['title'],
@@ -44,7 +35,7 @@ async def getAllSources():
 
 # Example query would be like: localhost:8000/news_query/?q=india
 @router.get("/news_query/")
-async def getQueryNews(q="", source=""):
+async def getQueryNews(q="", source="", page=1, pageSize=100):
     if(os.getenv("newsToken"))==None:
         return {"error":"Could not load token"}
     
@@ -53,6 +44,8 @@ async def getQueryNews(q="", source=""):
         params.append(f'sources={source}')
     if len(q)!=0:
         params.append(f'q={q}')
+    params.append(f'page={page}')
+    params.append(f'pageSize={pageSize}')
     params.append(f'apiKey={os.getenv("newsToken")}')
 
     params = '&'.join(params)
