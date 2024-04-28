@@ -50,7 +50,7 @@ async def getQueryNews(q="", source="", page=1, pageSize=100):
 
     params = '&'.join(params)
 
-    response = requests.get(url=f'https://newsapi.org/v2/everything?{params}')
+    response = requests.get(url=f'https://newsapi.org/v2/everything?language=en&{params}')
     data = response.json()
     data = [create_newsModel(i) for i in data['articles']]
     return data
