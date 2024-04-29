@@ -7,6 +7,7 @@ class NewsModel(BaseModel):
     description:str | None
     url:str | None
     content:str
+    image:str | None
 
 class Question(BaseModel):
     ques:str

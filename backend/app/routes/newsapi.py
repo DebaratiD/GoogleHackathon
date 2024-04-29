@@ -22,7 +22,8 @@ def create_newsModel(i)->NewsModel:
         author=i['author'],
         description=i['description'],
         url=str(i['url']),
-        content=i['content']
+        content=i['content'],
+        image = i['urlToImage']
     )
 
 @router.get("/home")
@@ -33,7 +34,7 @@ async def getAllSources():
     data = response.json()
     return data['sources']
 
-# Example query would be like: localhost:8000/news_query/?q=india
+# Example query would be like: localhost:8000/news/news_query/?q=india
 @router.get("/news_query/")
 async def getQueryNews(q="", source="", page=1, pageSize=100):
     if(os.getenv("newsToken"))==None:
@@ -50,7 +51,7 @@ async def getQueryNews(q="", source="", page=1, pageSize=100):
 
     params = '&'.join(params)
 
-    response = requests.get(url=f'https://newsapi.org/v2/everything?{params}')
+    response = requests.get(url=f'https://newsapi.org/v2/everything?language=en&{params}')
     data = response.json()
     data = [create_newsModel(i) for i in data['articles']]
     return data
