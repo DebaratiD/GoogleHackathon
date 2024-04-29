@@ -1,30 +1,22 @@
 'use client'
 import Image from 'next/image'
-import profilePic from './backgroun.jpeg'
-import React, { useState } from 'react';
-import CardDashboard from "../components/cards-dashboard"
-import { useRouter } from 'next/router';
+import profilePic from '../../public/backgroun.jpeg'
+import React, { SyntheticEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Dashboard() {
-  const [answer, setAnswer] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
-  const handleClick = async (e) => {
+  const router = useRouter();
+
+  const handleClick = async (e:SyntheticEvent) => {
     e.preventDefault()
-    let url= 'http://localhost:8000/news/news_query/?q='+inputValue;
-    const response = await fetch(url);
-    const data = await response.json();
-    const filteredData = data.filter(obj => obj.title !== "[Removed]")
-    setAnswer(filteredData);
-    console.log(answer)
-    const router = useRouter();
-
-    router.push('/cards');
-
-    
+    router.push(`/news?query=${inputValue}`);    
   }
+
+
     return (
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
      
@@ -32,7 +24,7 @@ export default function Dashboard() {
         
         <Image src={profilePic} alt="Background" className="object-cover w-full h-full" />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black opacity-60"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60"></div>
       </div>
       
       <div className="relative justify-center z-10 text-center text-white w-1/2 margin-top-30">
@@ -43,7 +35,7 @@ export default function Dashboard() {
             Search
           </button>
         </div>
-        <p className="text-lg mt-4 mb-4">With Gemini Pro</p>
+    
         
           {/* {answer==null ? <div>dat is not available </div>: <div>dia is available</div> } */}
         

@@ -1,6 +1,5 @@
-import Link from 'next/link';
 import Image from 'next/image'
-import profilePic from './icon-img.jpeg'
+import profilePic from '../../public/icon-img.jpeg'
 const Navbar = () => {
   return (
 <nav className="bg-gray-800">
@@ -12,10 +11,11 @@ const Navbar = () => {
         </div>
         
           <div className="flex space-x-4">
-            <a href="#" className="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium" aria-current="page">Story teller</a>
+            <a href="/" className="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium" aria-current="page">Story teller</a>
           </div>
-      
+          
       </div>
+      <p className="text-lg mt-4 mb-4">With Gemini Pro</p>
       
     </div>
   </div>

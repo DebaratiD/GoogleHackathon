@@ -19,9 +19,9 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
+      to top,
+      rgb(var(--background-end-rgb)),
+      transparent
     )
     rgb(var(--background-start-rgb));
 }
@@ -34,4 +34,8 @@ body {
 
 .margin-top-30{
   margin-top: 30%;
+}
+.news-cards{
+  background: rgb(119,170,93);
+background: linear-gradient(90deg, rgba(119,170,93,1) 5%, rgba(77,214,242,1) 100%);
 }

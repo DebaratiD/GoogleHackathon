@@ -1,14 +1,13 @@
-import Image from "next/image";
-import Link from 'next/link'
-import Dashboard from "./dashboard/dashboard";
-import Navbar from "./components/navbar";
-import CardDashboard from "./components/cards-dashboard";
+import Link from "next/link";
+import Navbar from "./components/Navbar";
+import Dashboard from "./dashboard/page";
+
+
 export default function Home() {
   return (
     <div>
-    <Navbar/>
-    <Dashboard/>
-    {/* <CardDashboard/> */}
+      <Navbar/>
+      <Dashboard/>
     </div>
   
   );
