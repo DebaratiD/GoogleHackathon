@@ -22,12 +22,15 @@ function CardDashboard() {
   const [showStory, setShowStory] = useState(false)
   const [bookToShow, setBookToShow] = useState<Book>(b)
 
-  
+ 
   const params = useSearchParams()
+  useEffect(()=>{ 
   const query = String(params.get('query'))
-  // getNews(query).then((val)=>{
-  //   setCards(val);
-  // })
+    getNews(query).then((val)=>{
+    setCards(val);
+  })
+  },[setCards, getNews])
+  // 
   const handleShowStory=(val:Card)=>{
     let input:query = {...val, ques:val.content}
     getStory(input).then(
