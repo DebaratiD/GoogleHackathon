@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.models import Question
 import google.generativeai as genai
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -29,7 +30,8 @@ def AskGemini(req:Question):
          print(f'{type(e).__name__}: {e}')
 
 @router.post("/getstory")
-def getStory(req:Question):
+def getStory(req:str):
+    req = json.loads(req)
     genai.configure(api_key=googleKEY)
     model = genai.GenerativeModel('gemini-pro')
     if len(req.ques)=="":

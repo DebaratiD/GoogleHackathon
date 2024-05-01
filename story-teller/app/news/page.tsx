@@ -1,55 +1,61 @@
 // pages/index.tsx
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardComponent from '../components/CardComponent';
 import { Card } from '../../app/interfaces/card';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import {data} from '../sampledata'
+import BookDiv from '../components/bookDiv';
+import { Book, query } from '../interfaces/book';
+import {getNews, getStory} from '../newsAPI';
 
+
+const CardViewer:React.FC<{cards:Card[], handleShowStory:Function}> = ({cards,handleShowStory})=>{
+  return cards.map((card, index) =>           
+    <CardComponent key={index} cardData={card} showNews={handleShowStory}/>)
+}
+
+  let b:Book = {author:'',title:'', lines:[]} 
 function CardDashboard() {
-  // const [cards, setCards] = useState(Array<Card>)
+  const [cards, setCards] = useState(data)
+  const [showStory, setShowStory] = useState(false)
+  const [bookToShow, setBookToShow] = useState<Book>(b)
 
-  // const cards = [
-  //   {
-  //     title: 'Card 1',
-  //     description: 'Description for Card 1',
-  //     imageUrl: '/card1.jpg',
-  //   },
-  //   {
-  //     title: 'Card 2',
-  //     description: 'Description for Card 2',
-  //     imageUrl: '/card2.jpg',
-  //   },
-  // ];
-  // async function getNews(inputValue:string){
-  //   let url= 'http://localhost:8000/news/news_query/?q='+inputValue;
-  //   const response = (await fetch(url)).json()
-  //   let data = await response
-  //   const cards:Card[] = data.filter((obj:Card) => obj.title !== "[Removed]")
-  //   return cards
-  // }
   
   const params = useSearchParams()
   const query = String(params.get('query'))
   // getNews(query).then((val)=>{
   //   setCards(val);
   // })
-  let cards = data
+  const handleShowStory=(val:Card)=>{
+    let input:query = {...val, ques:val.content}
+    getStory(input).then(
+      (val:Book)=>{
+        setBookToShow(val);
+      }
+    );
+    setShowStory(true);
+  }
 
   return (
 
       <div>
         
         <Navbar/>
+        {showStory==false &&
+        <div className="bggradient grid min-h-screen lg:grid-cols-3 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-2">
 
-        <div className="news-cards grid h-screen lg:grid-cols-3 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-2">
-
-          {cards.map((card, index) => (
           
-          <CardComponent key={index} cardData={card} />
-        ))}
+        <CardViewer cards={cards} handleShowStory={handleShowStory}/>
+          </div>}
+        
+        {showStory==true && 
+        <div className='bggradient min-h-screen flex p-5 justify-center'>
+          <BookDiv bookContent={bookToShow} showStory={(val:boolean)=>setShowStory(val)}/>
         </div>
+        }
+        
         
     </div>
   );

@@ -35,7 +35,17 @@ body {
 .margin-top-30{
   margin-top: 30%;
 }
-.news-cards{
+.bggradient{
   background: rgb(119,170,93);
 background: linear-gradient(90deg, rgba(119,170,93,1) 5%, rgba(77,214,242,1) 100%);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #333;
+  overflow: hidden;
+  margin: 0;
 }
