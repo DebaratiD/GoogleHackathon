@@ -29,7 +29,7 @@ export default function Dashboard() {
       </div>
       
       <div className="relative justify-center z-10 text-center text-white w-1/2 margin-top-10">
-        <h1 className="text-4xl font-bold mb-6">STORY TELLER</h1>
+        <h1 className="text-4xl font-bold mb-6">STORY TAILOR</h1>
         <div className="flex justify-center">
           <input type="search" className="text-black font-bold py-2 px-4 rounded mr-4 w-1/2" onChange={handleInputChange} />
           <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-1/6" onClick={handleClick}>
