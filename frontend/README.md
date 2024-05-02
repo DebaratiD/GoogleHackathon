@@ -1,3 +1,13 @@
+## The Story Tailor application
+
+This application can be run by cloning the repository, then running the following commands in order:
+
+1. `npm i`
+2. `npm run dev`
+
+
+This should automatically start the website at http://localhost:3000.
+
 Homepage:
 ![Screenshot 2024-05-01 232709](https://github.com/DebaratiD/GoogleFrontend/assets/37064721/7009eee5-36a4-4cf1-b738-3376788b7409)
 
