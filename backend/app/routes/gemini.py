@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.models import Question
 import google.generativeai as genai
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -28,7 +29,7 @@ def AskGemini(req:Question):
     except Exception as e:
          print(f'{type(e).__name__}: {e}')
 
-@router.post("/getstory")
+@router.post("/getstory/")
 def getStory(req:Question):
     genai.configure(api_key=googleKEY)
     model = genai.GenerativeModel('gemini-pro')
